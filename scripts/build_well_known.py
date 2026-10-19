@@ -14,6 +14,12 @@ file resolve at https://<site>/.well-known/skills/<skill>/<file>.
 Usage:
   python scripts/build_well_known.py --out path/to/site/.well-known/skills
   python scripts/build_well_known.py --check path/to/site/.well-known/skills
+  python scripts/build_well_known.py --index .well-known/skills/index.json
+
+--index writes only index.json. This repository commits that file, and
+empiriolabs.ai serves it with each listed file read from skills/<skill>/<file>,
+so the site always matches the main branch. tests/test_build_well_known.py fails
+when the committed index is out of date.
 
 Exit codes: 0 written or in sync, 1 --check found drift or a skill is invalid, 2 could not run.
 Python 3.8+, standard library only.
@@ -161,12 +167,24 @@ def main(argv=None):
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--out", help="Directory to write (served as /.well-known/skills/).")
     group.add_argument("--check", metavar="DIR", help="Compare DIR with a fresh build without writing.")
+    group.add_argument("--index", metavar="FILE", help="Write only index.json to FILE.")
     args = parser.parse_args(argv)
     try:
         index, sources = plan()
     except (BuildError, OSError) as exc:
         print("build_well_known: " + str(exc), file=sys.stderr)
         return 1 if isinstance(exc, BuildError) else 2
+    if args.index:
+        try:
+            folder = os.path.dirname(os.path.abspath(args.index))
+            os.makedirs(folder, exist_ok=True)
+            with open(args.index, "wb") as handle:
+                handle.write(index)
+        except OSError as exc:
+            print("build_well_known: " + str(exc), file=sys.stderr)
+            return 2
+        print("build_well_known: wrote " + args.index)
+        return 0
     if args.check:
         problems = check(os.path.abspath(args.check), index, sources)
         if problems:

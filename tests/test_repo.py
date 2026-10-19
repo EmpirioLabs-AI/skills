@@ -120,7 +120,9 @@ class ManifestTests(unittest.TestCase):
     def test_marketplaces_point_at_this_plugin(self):
         name = load_json("plugin.json")["name"]
         claude = load_json(".claude-plugin/marketplace.json")
-        self.assertEqual([(p["name"], p["source"]) for p in claude["plugins"]], [(name, "./")])
+        # This repository's skills plugin, then the remote MCP server plugin from its own repository.
+        self.assertEqual([(p["name"], p["source"]) for p in claude["plugins"]],
+                         [(name, "./"), ("empiriolabs-ai", {"source": "github", "repo": "EmpirioLabs-AI/mcp"})])
         self.assertTrue(claude["owner"]["name"])
         codex = load_json(".agents/plugins/marketplace.json")
         self.assertEqual(codex["name"], claude["name"])

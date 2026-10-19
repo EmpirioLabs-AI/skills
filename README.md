@@ -85,6 +85,8 @@ Any of the three sources works. To browse every skill in this repository, run `h
 
 From a terminal, the same steps are `claude plugin marketplace add EmpirioLabs-AI/skills` and `claude plugin install empiriolabs@empiriolabs-ai`. Claude uses a skill when a task matches it, and you can call one directly, for example `/empiriolabs:empiriolabs-image`.
 
+The same marketplace also offers the EmpirioLabs AI remote MCP server as a plugin: `/plugin install empiriolabs-ai@empiriolabs-ai`.
+
 ### Codex
 
 ```bash
@@ -136,10 +138,10 @@ The same models, plus GPU Cloud, hosted agents, batch jobs, and web search, are 
 ```bash
 python -m unittest discover -s tests                 # offline unit tests, no network
 python scripts/sync_shared.py                        # copy shared/empiriolabs_api.py into each skill
-python scripts/build_well_known.py --out <site>/.well-known/skills
+python scripts/build_well_known.py --index .well-known/skills/index.json   # after changing a skill
 ```
 
-`shared/empiriolabs_api.py` is the one copy of the API client to edit; each skill carries an identical copy so it works when installed on its own, and the tests fail if a copy drifts. `scripts/build_well_known.py` writes the `/.well-known/skills/` index and files that Hermes Agent and the skills CLI install from a website. `tests/live_smoke.py` makes real, billed requests when `EMPIRIOLABS_API_KEY` is set.
+`shared/empiriolabs_api.py` is the one copy of the API client to edit; each skill carries an identical copy so it works when installed on its own, and the tests fail if a copy drifts. `scripts/build_well_known.py` writes the `/.well-known/skills/` index that Hermes Agent and the skills CLI install from a website. The committed `.well-known/skills/index.json` is what https://empiriolabs.ai/.well-known/skills/index.json serves, with each listed file read from `skills/`; the tests fail when it is out of date. `--out <dir>` writes the index and every file for a site that hosts its own copy. `tests/live_smoke.py` makes real, billed requests when `EMPIRIOLABS_API_KEY` is set.
 
 ## Support and license
 

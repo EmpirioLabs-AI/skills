@@ -78,6 +78,15 @@ class WellKnownTests(unittest.TestCase):
         self.assertEqual(fields["name"], "empiriolabs-video")
         self.assertTrue(fields["description"].startswith("Generate short videos"))
 
+    def test_committed_index_matches_a_fresh_build(self):
+        # empiriolabs.ai serves this committed file at /.well-known/skills/index.json.
+        committed = os.path.join(ROOT, ".well-known", "skills", "index.json")
+        fresh = os.path.join(self.tmp.name, "index.json")
+        self.assertEqual(self.build("--index", fresh)[0], 0)
+        with open(committed, "rb") as a, open(fresh, "rb") as b:
+            self.assertEqual(a.read(), b.read(),
+                             "run: python scripts/build_well_known.py --index .well-known/skills/index.json")
+
 
 if __name__ == "__main__":
     unittest.main()

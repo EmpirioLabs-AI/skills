@@ -1,0 +1,48 @@
+{
+  "skills": [
+    {
+      "name": "empiriolabs-image",
+      "description": "Generate and edit images with EmpirioLabs AI. Use when the user asks to create, draw, illustrate, or render a picture, logo concept, product shot, poster, or social image, or to edit, restyle, or combine existing images from a URL or local file. Runs a bundled Python script that picks a model from the live catalog (or the one you name), waits for the result, and saves the files to the path you choose.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/image.py"
+      ]
+    },
+    {
+      "name": "empiriolabs-models",
+      "description": "Find the right EmpirioLabs AI model for a task and look up its price, parameters, limits, and supported endpoints in the live public catalog. Use when the user asks which model to use for text, image, video, audio, transcription, research, embeddings, or 3D, what a model costs, which models support a feature or endpoint, or what parameters a model accepts. No API key needed.",
+      "files": [
+        "SKILL.md",
+        "scripts/models.py"
+      ]
+    },
+    {
+      "name": "empiriolabs-speech",
+      "description": "Turn text into natural speech with EmpirioLabs AI and save the audio file (MP3, WAV, and other formats). Use when the user asks to read text aloud, create a voiceover, narration, or audio version of a script, or try different voices and languages. Runs a bundled Python script that picks a text-to-speech model from the live catalog (or the one you name) and saves the audio to the path you choose.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/speech.py"
+      ]
+    },
+    {
+      "name": "empiriolabs-transcribe",
+      "description": "Transcribe audio or video files to text with EmpirioLabs AI, from an https URL or a local file. Use when the user asks for a transcript of a recording, meeting, interview, podcast, voice note, or video, wants speaker-labeled text, or needs the spoken words as text for notes, summaries, or captions. Runs a bundled Python script that picks a transcription model from the live catalog (or the one you name) and waits for the result.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/transcribe.py"
+      ]
+    },
+    {
+      "name": "empiriolabs-video",
+      "description": "Generate short videos with EmpirioLabs AI from a text prompt or a start image, wait for the job to finish, and download the MP4. Use when the user asks to make, animate, or render a video clip, turn a still image into motion, or check on a video job that is still running. Runs a bundled Python script that picks a model from the live catalog (or the one you name) and saves the file to the path you choose.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/video.py"
+      ]
+    }
+  ]
+}

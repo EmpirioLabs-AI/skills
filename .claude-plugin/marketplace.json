@@ -1,6 +1,6 @@
 {
   "name": "empiriolabs-ai",
-  "description": "EmpirioLabs AI agent skills for images, video, speech, transcription, and model selection.",
+  "description": "EmpirioLabs AI for Claude Code: agent skills for images, video, speech, transcription, and model selection, plus the EmpirioLabs AI remote MCP server.",
   "owner": {
     "name": "EmpirioLabs AI",
     "email": "support@empiriolabs.ai",
@@ -17,6 +17,22 @@
         "text-to-speech",
         "transcription",
         "model-catalog"
+      ]
+    },
+    {
+      "name": "empiriolabs-ai",
+      "source": {
+        "source": "github",
+        "repo": "EmpirioLabs-AI/mcp"
+      },
+      "category": "development",
+      "tags": [
+        "mcp",
+        "ai-models",
+        "image-generation",
+        "video-generation",
+        "web-search",
+        "gpu-cloud"
       ]
     }
   ]

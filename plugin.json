@@ -1,0 +1,47 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "empiriolabs",
+  "version": "1.0.0",
+  "description": "Agent skills for EmpirioLabs AI: generate and edit images, make videos, turn text into speech, transcribe audio and video, and choose models and prices from the live catalog.",
+  "author": {
+    "name": "EmpirioLabs AI",
+    "email": "support@empiriolabs.ai",
+    "url": "https://empiriolabs.ai"
+  },
+  "homepage": "https://docs.empiriolabs.ai",
+  "repository": "https://github.com/EmpirioLabs-AI/skills",
+  "license": "MIT-0",
+  "keywords": [
+    "empiriolabs",
+    "image-generation",
+    "image-editing",
+    "video-generation",
+    "text-to-speech",
+    "transcription",
+    "model-catalog",
+    "agent-skills"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "EmpirioLabs AI",
+        "shortDescription": "Image, video, and audio tools",
+        "longDescription": "Five skills that let an agent use EmpirioLabs AI: generate and edit images, make videos from a prompt or a start image, turn text into speech, transcribe audio and video files, and choose models with their prices from the live catalog. Each skill runs a small Python script that uses only the standard library and saves results to the path you choose. The media skills need an EmpirioLabs AI API key in EMPIRIOLABS_API_KEY, and requests are billed to your EmpirioLabs AI account at each model's listed price. The model catalog skill needs no key.",
+        "developerName": "EmpirioLabs AI",
+        "category": "Productivity",
+        "websiteURL": "https://empiriolabs.ai",
+        "supportURL": "https://docs.empiriolabs.ai/support",
+        "privacyPolicyURL": "https://empiriolabs.ai/privacy-policy",
+        "termsOfServiceURL": "https://empiriolabs.ai/terms-of-service",
+        "defaultPrompt": [
+          "Generate a watercolor image of a lighthouse at dawn and save it to ./images",
+          "Transcribe this recording and save the transcript as a text file",
+          "Which EmpirioLabs AI model should I use for image editing, and what does it cost?"
+        ],
+        "brandColor": "#0a7cff",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      }
+    }
+  }
+}

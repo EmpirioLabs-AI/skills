@@ -1,0 +1,23 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Images, video, and audio",
+      "description": "Create images, video, and speech, and transcribe recordings with EmpirioLabs AI.",
+      "skills": [
+        "empiriolabs-image",
+        "empiriolabs-video",
+        "empiriolabs-speech",
+        "empiriolabs-transcribe"
+      ]
+    },
+    {
+      "title": "Models and pricing",
+      "description": "Find the right EmpirioLabs AI model and its price in the live catalog.",
+      "skills": [
+        "empiriolabs-models"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "empiriolabs",
+  "version": "1.0.0",
+  "description": "Agent skills for EmpirioLabs AI: generate and edit images, make videos, turn text into speech, transcribe audio and video, and choose models and prices from the live catalog.",
+  "author": {
+    "name": "EmpirioLabs AI",
+    "email": "support@empiriolabs.ai"
+  },
+  "homepage": "https://docs.empiriolabs.ai",
+  "repository": "https://github.com/EmpirioLabs-AI/skills",
+  "license": "MIT-0",
+  "keywords": [
+    "empiriolabs",
+    "image-generation",
+    "image-editing",
+    "video-generation",
+    "text-to-speech",
+    "transcription",
+    "model-catalog",
+    "agent-skills"
+  ],
+  "logo": "assets/icon.png"
+}

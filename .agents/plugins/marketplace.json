@@ -1,0 +1,20 @@
+{
+  "name": "empiriolabs-ai",
+  "interface": {
+    "displayName": "EmpirioLabs AI"
+  },
+  "plugins": [
+    {
+      "name": "empiriolabs",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

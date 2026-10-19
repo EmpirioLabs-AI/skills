@@ -1,0 +1,23 @@
+{
+  "name": "empiriolabs-ai",
+  "description": "EmpirioLabs AI agent skills for images, video, speech, transcription, and model selection.",
+  "owner": {
+    "name": "EmpirioLabs AI",
+    "email": "support@empiriolabs.ai",
+    "url": "https://empiriolabs.ai"
+  },
+  "plugins": [
+    {
+      "name": "empiriolabs",
+      "source": "./",
+      "category": "media",
+      "tags": [
+        "image-generation",
+        "video-generation",
+        "text-to-speech",
+        "transcription",
+        "model-catalog"
+      ]
+    }
+  ]
+}

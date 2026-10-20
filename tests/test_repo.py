@@ -195,5 +195,22 @@ class TextTests(unittest.TestCase):
                     self.assertIn("usage:", result.stdout)
 
 
+
+class ClawHubListingTests(unittest.TestCase):
+    def test_every_skill_has_a_clawhub_listing_and_a_version(self):
+        with open(os.path.join(ROOT, "clawhub.json"), encoding="utf-8") as handle:
+            config = json.load(handle)
+        self.assertEqual(config["owner"], "empiriolabs")
+        skills = sorted(d for d in os.listdir(os.path.join(ROOT, "skills"))
+                        if os.path.isfile(os.path.join(ROOT, "skills", d, "SKILL.md")))
+        self.assertEqual(sorted(config["skills"]), skills)
+        for name, listing in config["skills"].items():
+            self.assertTrue(listing["name"].startswith("EmpirioLabs AI "), name)
+            self.assertTrue(listing["categories"] and listing["topics"], name)
+            with open(os.path.join(ROOT, "skills", name, "SKILL.md"), encoding="utf-8") as handle:
+                frontmatter = handle.read().split("---", 2)[1]
+            self.assertRegex(frontmatter, re.compile(r'^\s+version:\s*"?[0-9]+\.[0-9]+\.[0-9]+"?\s*$', re.M), name)
+
+
 if __name__ == "__main__":
     unittest.main()

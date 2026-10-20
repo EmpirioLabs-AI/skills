@@ -1,0 +1,30 @@
+{
+  "owner": "empiriolabs",
+  "skills": {
+    "empiriolabs-image": {
+      "name": "EmpirioLabs AI Image",
+      "categories": ["creative"],
+      "topics": ["image-generation", "image-editing", "empiriolabs"]
+    },
+    "empiriolabs-models": {
+      "name": "EmpirioLabs AI Models",
+      "categories": ["integrations"],
+      "topics": ["model-catalog", "ai-models", "pricing", "empiriolabs"]
+    },
+    "empiriolabs-speech": {
+      "name": "EmpirioLabs AI Speech",
+      "categories": ["creative"],
+      "topics": ["text-to-speech", "voiceover", "empiriolabs"]
+    },
+    "empiriolabs-transcribe": {
+      "name": "EmpirioLabs AI Transcribe",
+      "categories": ["productivity", "creative"],
+      "topics": ["transcription", "speech-to-text", "empiriolabs"]
+    },
+    "empiriolabs-video": {
+      "name": "EmpirioLabs AI Video",
+      "categories": ["creative"],
+      "topics": ["video-generation", "text-to-video", "image-to-video", "empiriolabs"]
+    }
+  }
+}

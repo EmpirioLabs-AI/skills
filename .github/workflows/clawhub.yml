@@ -1,0 +1,41 @@
+name: clawhub
+
+# Publishes a skill to ClawHub when the version in its SKILL.md (metadata.version)
+# is not on ClawHub yet. Listing fields come from clawhub.json. Raise a skill's
+# version in SKILL.md to release it; versions already on ClawHub are skipped.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "clawhub.json"
+      - "scripts/publish_clawhub.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clawhub-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Offline unit tests
+        run: python -m unittest discover -s tests
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Sign in to ClawHub
+        run: npx -y clawhub@0.23.3 login --token "$CLAWHUB_TOKEN" --no-input
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+      - name: Publish new skill versions
+        run: python scripts/publish_clawhub.py --clawhub "npx -y clawhub@0.23.3"

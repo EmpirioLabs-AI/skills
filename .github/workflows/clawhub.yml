@@ -3,6 +3,8 @@ name: clawhub
 # Publishes a skill to ClawHub when the version in its SKILL.md (metadata.version)
 # is not on ClawHub yet. Listing fields come from clawhub.json. Raise a skill's
 # version in SKILL.md to release it; versions already on ClawHub are skipped.
+# The ClawHub CLI comes from .github/clawhub/package-lock.json (exact versions and
+# integrity hashes, no install scripts) and is installed outside the checkout.
 
 on:
   push:
@@ -24,18 +26,26 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.13"
       - name: Offline unit tests
         run: python -m unittest discover -s tests
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "22"
+      - name: Install the ClawHub CLI from its lockfile
+        run: |
+          mkdir -p "$RUNNER_TEMP/clawhub"
+          cp .github/clawhub/package.json .github/clawhub/package-lock.json "$RUNNER_TEMP/clawhub/"
+          npm ci --ignore-scripts --no-audit --no-fund --prefix "$RUNNER_TEMP/clawhub"
+          echo "$RUNNER_TEMP/clawhub/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Sign in to ClawHub
-        run: npx -y clawhub@0.23.3 login --token "$CLAWHUB_TOKEN" --no-input
+        run: clawhub login --token "$CLAWHUB_TOKEN" --no-input
         env:
           CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
       - name: Publish new skill versions
-        run: python scripts/publish_clawhub.py --clawhub "npx -y clawhub@0.23.3"
+        run: python scripts/publish_clawhub.py --clawhub clawhub

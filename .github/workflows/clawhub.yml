@@ -5,6 +5,9 @@ name: clawhub
 # version in SKILL.md to release it; versions already on ClawHub are skipped.
 # The ClawHub CLI comes from .github/clawhub/package-lock.json (exact versions and
 # integrity hashes, no install scripts) and is installed outside the checkout.
+# ClawHub has no trusted publishing for skills, so the token is a secret of the
+# clawhub environment, which runs only from main and waits for a maintainer's
+# approval before the job starts.
 
 on:
   push:
@@ -25,6 +28,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: clawhub
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:

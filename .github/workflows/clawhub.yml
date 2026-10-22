@@ -3,7 +3,7 @@ name: clawhub
 # Publishes a skill to ClawHub when the version in its SKILL.md (metadata.version)
 # is not on ClawHub yet. Listing fields come from clawhub.json. Raise a skill's
 # version in SKILL.md to release it; versions already on ClawHub are skipped.
-# The ClawHub CLI comes from .github/clawhub/package-lock.json (exact versions and
+# The ClawHub CLI comes from clawhub-cli/package-lock.json (exact versions and
 # integrity hashes, no install scripts) and is installed outside the checkout.
 # ClawHub has no trusted publishing for skills, so the token is a secret of the
 # clawhub environment, which runs only from main and waits for a maintainer's
@@ -44,7 +44,7 @@ jobs:
       - name: Install the ClawHub CLI from its lockfile
         run: |
           mkdir -p "$RUNNER_TEMP/clawhub"
-          cp .github/clawhub/package.json .github/clawhub/package-lock.json "$RUNNER_TEMP/clawhub/"
+          cp clawhub-cli/package.json clawhub-cli/package-lock.json "$RUNNER_TEMP/clawhub/"
           npm ci --ignore-scripts --no-audit --no-fund --prefix "$RUNNER_TEMP/clawhub"
           echo "$RUNNER_TEMP/clawhub/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Sign in to ClawHub

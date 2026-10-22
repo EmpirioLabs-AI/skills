@@ -9,8 +9,10 @@ updates:
     cooldown:
       default-days: 7
   # The locked ClawHub CLI that publishes the skills (.github/workflows/clawhub.yml).
+  # It lives outside .github/ because Dependabot cannot open pull requests for a
+  # package file there.
   - package-ecosystem: npm
-    directory: /.github/clawhub
+    directory: /clawhub-cli
     schedule:
       interval: weekly
     cooldown:

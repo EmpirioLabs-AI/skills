@@ -1,13 +1,9 @@
 version: 2
 updates:
-  # Version updates wait until a release is a week old: a poisoned release is
-  # usually found and pulled within hours. Security updates are not delayed.
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
-    cooldown:
-      default-days: 7
   # The locked ClawHub CLI that publishes the skills (.github/workflows/clawhub.yml).
   # It lives outside .github/ because Dependabot cannot open pull requests for a
   # package file there.
@@ -15,5 +11,3 @@ updates:
     directory: /clawhub-cli
     schedule:
       interval: weekly
-    cooldown:
-      default-days: 7

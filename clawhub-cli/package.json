@@ -4,7 +4,7 @@
   "description": "The ClawHub CLI that .github/workflows/clawhub.yml publishes with, installed from package-lock.json with npm ci --ignore-scripts. Kept outside .github/ so Dependabot can open pull requests for it.",
   "license": "MIT",
   "dependencies": {
-    "clawhub": "0.23.3"
+    "clawhub": "0.24.1"
   },
   "overrides": {
     "undici": "7.29.1"

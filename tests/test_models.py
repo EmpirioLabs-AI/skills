@@ -72,7 +72,7 @@ class ModelsTests(unittest.TestCase):
     def test_categories(self):
         self.assertEqual(self.run_models(["--categories", "--json"]), 0)
         rows = {r["slug"]: r["models"] for r in json.loads(self.stdout)}
-        self.assertEqual(rows["image"], 4)
+        self.assertEqual(rows["image"], 5)
         self.assertEqual(rows["transcription"], 2)
 
 

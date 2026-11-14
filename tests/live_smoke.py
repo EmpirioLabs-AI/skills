@@ -12,8 +12,9 @@ Steps (each runs the real script as a subprocess, exactly as an agent would):
   5. music.py makes a 10-second clip with the default model
   6. ocr.py reads the first page of a public PDF with the default model
   7. search.py runs one web search with the default model
-  8. video.py (only with --video) makes a 1-second 480p clip, if its listed price is under $0.10
-  9. model3d.py (only with --model3d) builds one model at resolution 512, if its listed price is under $0.10
+  8. chat.py asks the default text model one short question
+  9. video.py (only with --video) makes a 1-second 480p clip, if its listed price is under $0.10
+ 10. model3d.py (only with --model3d) builds one model at resolution 512, if its listed price is under $0.10
 
 Before each billed step the listed catalog price is checked against the remaining budget.
 Afterwards each step is matched to its own usage event from GET /v1/account/usage (by output
@@ -234,6 +235,15 @@ def main(argv=None):
     if summary.get("model"):
         billed.append({"label": "search", "model": summary["model"], "start": start, "end": end, "urls": []})
     print("    search results: " + str(len(summary.get("results") or [])))
+
+    proc, ok, start, end = run("chat", [script("empiriolabs-chat", "chat.py"),
+                                        "Reply with the single word ready.", "--max-tokens", "200",
+                                        "--out", os.path.join(out, "answer.md")], key)
+    summary = summary_of(proc, ok)
+    results["chat"] = ok and bool(summary.get("file")) and (summary.get("characters") or 0) > 0
+    if summary.get("model"):
+        billed.append({"label": "chat", "model": summary["model"], "start": start, "end": end, "urls": []})
+    print("    " + json.dumps(summary))
 
     if args.video:
         price, spec = per_unit_price(by_id.get(VIDEO_MODEL) or {}, "480p")

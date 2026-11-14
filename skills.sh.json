@@ -3,6 +3,13 @@
   "notGrouped": "bottom",
   "groupings": [
     {
+      "title": "Text models",
+      "description": "Ask EmpirioLabs AI text models for answers and second opinions.",
+      "skills": [
+        "empiriolabs-chat"
+      ]
+    },
+    {
       "title": "Images, video, 3D, and audio",
       "description": "Create images, video, 3D models, music, and speech, and transcribe recordings with EmpirioLabs AI.",
       "skills": [

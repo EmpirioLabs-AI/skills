@@ -1,7 +1,7 @@
 {
   "name": "empiriolabs",
-  "version": "1.1.0",
-  "description": "Agent skills for EmpirioLabs AI: generate and edit images, make videos, build 3D models, compose music and sound effects, turn text into speech, transcribe audio and video, read documents as Markdown, search the web, and choose models and prices from the live catalog.",
+  "version": "1.2.0",
+  "description": "Agent skills for EmpirioLabs AI: ask text models for answers and second opinions, generate and edit images, make videos, build 3D models, compose music and sound effects, turn text into speech, transcribe audio and video, read documents as Markdown, search the web, and choose models and prices from the live catalog.",
   "author": {
     "name": "EmpirioLabs AI",
     "email": "support@empiriolabs.ai"
@@ -11,6 +11,7 @@
   "license": "MIT-0",
   "keywords": [
     "empiriolabs",
+    "chat",
     "image-generation",
     "image-editing",
     "video-generation",

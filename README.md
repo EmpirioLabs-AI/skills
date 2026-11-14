@@ -4,7 +4,7 @@
 
 # EmpirioLabs AI agent skills
 
-Agent skills for [EmpirioLabs AI](https://empiriolabs.ai). They let an AI agent generate and edit images, make videos, build 3D models, compose music and sound effects, turn text into speech, transcribe audio and video, read documents as Markdown, search the web, and choose the right model and price from the live catalog. Each skill is a folder with a `SKILL.md` and a small Python script that uses only the standard library, so the same files work in OpenClaw, Hermes Agent, Claude Code, Codex, Cursor, and any client that supports [Agent Skills](https://agentskills.io).
+Agent skills for [EmpirioLabs AI](https://empiriolabs.ai). They let an AI agent ask text models for answers and second opinions, generate and edit images, make videos, build 3D models, compose music and sound effects, turn text into speech, transcribe audio and video, read documents as Markdown, search the web, and choose the right model and price from the live catalog. Each skill is a folder with a `SKILL.md` and a small Python script that uses only the standard library, so the same files work in OpenClaw, Hermes Agent, Claude Code, Codex, Cursor, and any client that supports [Agent Skills](https://agentskills.io).
 
 EmpirioLabs AI is a specialized AI inference and integration provider. It self-hosts open-source models on GPU infrastructure it manages, runs optimized endpoints for proprietary models, and offers on-demand GPU Cloud instances and hosted AI agents. The model catalog spans text, image, video, audio, transcription, embedding, reranking, research, and 3D models.
 
@@ -12,6 +12,7 @@ EmpirioLabs AI is a specialized AI inference and integration provider. It self-h
 
 | Skill | What it does | API key |
 |---|---|---|
+| [empiriolabs-chat](skills/empiriolabs-chat/SKILL.md) | Ask a text model a question, get a second opinion on a file or an image, or have several models answer the same prompt | Required |
 | [empiriolabs-image](skills/empiriolabs-image/SKILL.md) | Generate images from a prompt, or edit and combine existing images | Required |
 | [empiriolabs-video](skills/empiriolabs-video/SKILL.md) | Make a video from a prompt or a start image, wait for the job, and download the MP4 | Required |
 | [empiriolabs-3d](skills/empiriolabs-3d/SKILL.md) | Turn a picture of an object into a 3D model, wait for the job, and download the file | Required |
@@ -118,6 +119,7 @@ Agents run these for you once a skill is installed. You can also run them yourse
 
 ```bash
 python3 skills/empiriolabs-models/scripts/models.py --category image
+python3 skills/empiriolabs-chat/scripts/chat.py "Review this function for bugs" --file ./src/parser.py
 python3 skills/empiriolabs-image/scripts/image.py "a lighthouse at dawn, watercolor" --out ./images/lighthouse.webp
 python3 skills/empiriolabs-video/scripts/video.py "a paper boat drifting down a rainy street" --out ./clips/boat.mp4
 python3 skills/empiriolabs-speech/scripts/speech.py "Welcome to the weekly update." --out ./audio/welcome.mp3
@@ -128,7 +130,7 @@ python3 skills/empiriolabs-ocr/scripts/ocr.py ./invoice.pdf --out ./invoice.md
 python3 skills/empiriolabs-search/scripts/search.py "latest stable release of Python"
 ```
 
-Each script has `--help` and prints progress on stderr. The scripts that save a file print a JSON summary on stdout; the OCR and search scripts print their text when no `--out` is given.
+Each script has `--help` and prints progress on stderr. The scripts that save a file print a JSON summary on stdout; the chat, OCR, and search scripts print their text when no `--out` is given.
 
 ## How the scripts behave
 

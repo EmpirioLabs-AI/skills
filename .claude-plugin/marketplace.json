@@ -1,6 +1,6 @@
 {
   "name": "empiriolabs-ai",
-  "description": "EmpirioLabs AI for Claude Code: agent skills for images, video, 3D models, music, speech, transcription, document OCR, web search, and model selection, plus the EmpirioLabs AI remote MCP server.",
+  "description": "EmpirioLabs AI for Claude Code: agent skills for chat with text models, images, video, 3D models, music, speech, transcription, document OCR, web search, and model selection, plus the EmpirioLabs AI remote MCP server.",
   "owner": {
     "name": "EmpirioLabs AI",
     "email": "support@empiriolabs.ai",
@@ -12,6 +12,7 @@
       "source": "./",
       "category": "media",
       "tags": [
+        "chat",
         "image-generation",
         "video-generation",
         "3d-generation",

@@ -3,13 +3,23 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "Images, video, and audio",
-      "description": "Create images, video, and speech, and transcribe recordings with EmpirioLabs AI.",
+      "title": "Images, video, 3D, and audio",
+      "description": "Create images, video, 3D models, music, and speech, and transcribe recordings with EmpirioLabs AI.",
       "skills": [
         "empiriolabs-image",
         "empiriolabs-video",
+        "empiriolabs-3d",
+        "empiriolabs-music",
         "empiriolabs-speech",
         "empiriolabs-transcribe"
+      ]
+    },
+    {
+      "title": "Documents and search",
+      "description": "Read PDFs and images as Markdown and search the web with EmpirioLabs AI.",
+      "skills": [
+        "empiriolabs-ocr",
+        "empiriolabs-search"
       ]
     },
     {

@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "empiriolabs",
-  "version": "1.0.0",
-  "description": "Agent skills for EmpirioLabs AI: generate and edit images, make videos, turn text into speech, transcribe audio and video, and choose models and prices from the live catalog.",
+  "version": "1.1.0",
+  "description": "Agent skills for EmpirioLabs AI: generate and edit images, make videos, build 3D models, compose music and sound effects, turn text into speech, transcribe audio and video, read documents as Markdown, search the web, and choose models and prices from the live catalog.",
   "author": {
     "name": "EmpirioLabs AI",
     "email": "support@empiriolabs.ai",
@@ -16,8 +16,12 @@
     "image-generation",
     "image-editing",
     "video-generation",
+    "3d-generation",
+    "music-generation",
     "text-to-speech",
     "transcription",
+    "ocr",
+    "web-search",
     "model-catalog",
     "agent-skills"
   ],
@@ -25,8 +29,8 @@
     "com.openai": {
       "interface": {
         "displayName": "EmpirioLabs AI",
-        "shortDescription": "Image, video, and audio tools",
-        "longDescription": "Five skills that let an agent use EmpirioLabs AI: generate and edit images, make videos from a prompt or a start image, turn text into speech, transcribe audio and video files, and choose models with their prices from the live catalog. Each skill runs a small Python script that uses only the standard library and saves results to the path you choose. The media skills need an EmpirioLabs AI API key in EMPIRIOLABS_API_KEY, and requests are billed to your EmpirioLabs AI account at each model's listed price. The model catalog skill needs no key.",
+        "shortDescription": "Media, documents, and search",
+        "longDescription": "Nine skills that let an agent use EmpirioLabs AI: generate and edit images, make videos from a prompt or a start image, build 3D models from a picture, compose music and sound effects, turn text into speech, transcribe audio and video files, read PDFs and images as Markdown, search the web with sources, and choose models with their prices from the live catalog. Each skill runs a small Python script that uses only the standard library and saves results to the path you choose. Every skill except the model catalog needs an EmpirioLabs AI API key in EMPIRIOLABS_API_KEY, and requests are billed to your EmpirioLabs AI account at each model's listed price. The model catalog skill needs no key.",
         "developerName": "EmpirioLabs AI",
         "category": "Productivity",
         "websiteURL": "https://empiriolabs.ai",

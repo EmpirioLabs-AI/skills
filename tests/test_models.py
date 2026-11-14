@@ -35,7 +35,7 @@ class ModelsTests(unittest.TestCase):
         self.assertEqual(self.run_models(["--category", "video"]), 0)
         self.assertEqual(self.ids(), ["star-video", "other-video"])
         self.assertEqual(self.run_models(["--category", "tts"]), 0)
-        self.assertEqual(self.ids(), ["star-tts", "plain-tts"])
+        self.assertEqual(self.ids(), ["star-tts", "plain-tts", "star-music", "sfx-sound"])
 
     def test_filter_by_endpoint_feature_search_featured(self):
         self.run_models(["--endpoint", "audio/transcriptions"])

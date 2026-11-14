@@ -131,7 +131,7 @@ class CatalogTests(ClientTestCase):
 
     def test_no_candidate_raises(self):
         with self.assertRaises(api.ApiError):
-            api.pick_default(catalog()["data"], "POST /v1/3d/generations")
+            api.pick_default(catalog()["data"], "POST /v1/reranks")
 
     def test_resolve_explicit_model(self):
         self.use(CatalogTransport([]))

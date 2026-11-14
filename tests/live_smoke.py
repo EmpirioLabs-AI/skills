@@ -2,18 +2,22 @@
 """Live smoke test: real, billed requests through every skill script.
 
 Usage:
-  EMPIRIOLABS_API_KEY=... python tests/live_smoke.py --out ./smoke-output [--video] [--budget 0.15]
+  EMPIRIOLABS_API_KEY=... python tests/live_smoke.py --out ./smoke-output [--video] [--model3d] [--budget 0.15]
 
 Steps (each runs the real script as a subprocess, exactly as an agent would):
   1. models.py lists image models (free, public catalog)
   2. image.py makes one image with the default model
   3. speech.py speaks one short sentence with the default model
   4. transcribe.py transcribes a short public sample with the default model
-  5. video.py (only with --video) makes a 1-second 480p clip, if its listed price is under $0.10
+  5. music.py makes a 10-second clip with the default model
+  6. ocr.py reads the first page of a public PDF with the default model
+  7. search.py runs one web search with the default model
+  8. video.py (only with --video) makes a 1-second 480p clip, if its listed price is under $0.10
+  9. model3d.py (only with --model3d) builds one model at resolution 512, if its listed price is under $0.10
 
 Before each billed step the listed catalog price is checked against the remaining budget.
 Afterwards each step is matched to its own usage event from GET /v1/account/usage (by output
-URL, or by model and time window for transcription), so other traffic on the account is not
+URL, or by model and time window for a step that returns no file), so other traffic on the account is not
 counted. Every output is scanned to make sure the API key never appears.
 Exit codes: 0 all steps passed, 1 a step failed, 2 could not run.
 """
@@ -37,6 +41,8 @@ import empiriolabs_api as api  # noqa: E402
 
 SAMPLE_AUDIO = "https://media.empiriolabs.ai/assets/samples/ocean-sample.wav"
 VIDEO_MODEL = "hunyuan-video-1-5"
+SAMPLE_PDF = "https://arxiv.org/pdf/2412.13663"
+SAMPLE_PICTURE = "https://empiriolabs.ai/images/icon-dark-512.png"
 
 
 def script(skill, name):
@@ -128,6 +134,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--out", required=True, help="Directory for the generated files.")
     parser.add_argument("--video", action="store_true", help="Also run one short video if it costs under $0.10.")
+    parser.add_argument("--model3d", action="store_true", help="Also build one 3D model if it costs under $0.10.")
     parser.add_argument("--budget", type=float, default=0.15, help="Upper bound on listed prices for the run (USD).")
     args = parser.parse_args(argv)
     key = (os.environ.get(api.KEY_ENV) or "").strip()
@@ -191,6 +198,43 @@ def main(argv=None):
         with open(summary["file"], encoding="utf-8") as handle:
             print("    transcript: " + json.dumps(json.load(handle).get("text"))[:300])
 
+    music_model = api.pick_default(catalog, "POST /v1/audio/generations")
+    price, spec = per_unit_price(music_model)
+    estimate = price * 10 if price is not None and "second" in spec else price
+    print("music default " + music_model["id"] + " listed at $" + str(price) + " " + spec
+          + ", estimate for 10 seconds: $" + str(estimate))
+    if estimate is not None and estimate <= remaining:
+        proc, ok, start, end = run("music", [script("empiriolabs-music", "music.py"), "a calm solo piano melody",
+                                             "--duration", "10", "--out", os.path.join(out, "music.mp3")], key)
+        summary = summary_of(proc, ok)
+        files = summary.get("files") or []
+        results["music"] = ok and bool(files) and os.path.getsize(files[0]) > 1000
+        billed.append({"label": "music", "model": summary.get("model") or music_model["id"],
+                       "start": start, "end": end, "urls": summary.get("urls") or []})
+        remaining -= estimate
+        print("    " + json.dumps(summary))
+    else:
+        results["music"] = False
+        print("music skipped: listed price does not fit the budget")
+
+    ocr_model = api.pick_default(catalog, "POST /v1/ocr")
+    proc, ok, start, end = run("ocr (" + ocr_model["id"] + ")",
+                               [script("empiriolabs-ocr", "ocr.py"), SAMPLE_PDF, "--pages", "0",
+                                "--out", os.path.join(out, "page.md")], key)
+    summary = summary_of(proc, ok)
+    results["ocr"] = ok and bool(summary.get("file")) and (summary.get("characters") or 0) > 50
+    billed.append({"label": "ocr", "model": summary.get("model") or ocr_model["id"],
+                   "start": start, "end": end, "urls": []})
+    print("    " + json.dumps(summary))
+
+    proc, ok, start, end = run("search", [script("empiriolabs-search", "search.py"),
+                                          "EmpirioLabs AI model hosting", "--json"], key)
+    summary = summary_of(proc, ok)
+    results["search"] = ok and bool(summary.get("results"))
+    if summary.get("model"):
+        billed.append({"label": "search", "model": summary["model"], "start": start, "end": end, "urls": []})
+    print("    search results: " + str(len(summary.get("results") or [])))
+
     if args.video:
         price, spec = per_unit_price(by_id.get(VIDEO_MODEL) or {}, "480p")
         estimate = price if price is not None and "second" in spec else None
@@ -209,6 +253,23 @@ def main(argv=None):
             print("    " + json.dumps(summary))
         else:
             print("video skipped: a run would not cost under $0.10 within the budget")
+
+    if args.model3d:
+        d3_model = api.pick_default(catalog, "POST /v1/3d/generations")
+        price, spec = per_unit_price(d3_model, "512")
+        print("3d default " + d3_model["id"] + " at resolution 512 listed at $" + str(price) + " " + spec)
+        if price is not None and price < 0.10 and price <= remaining:
+            proc, ok, start, end = run("3d", [script("empiriolabs-3d", "model3d.py"), "--image", SAMPLE_PICTURE,
+                                              "--resolution", "512", "--out", os.path.join(out, "model.glb"),
+                                              "--timeout", "1500"], key)
+            summary = summary_of(proc, ok)
+            files = summary.get("files") or []
+            results["3d"] = ok and bool(files) and os.path.getsize(files[0]) > 1000
+            billed.append({"label": "3d", "model": summary.get("model") or d3_model["id"], "start": start,
+                           "end": end, "urls": summary.get("urls") or []})
+            print("    " + json.dumps(summary))
+        else:
+            print("3d skipped: a run would not cost under $0.10 within the budget")
 
     found = attribute_spend(billed)
     total = 0.0

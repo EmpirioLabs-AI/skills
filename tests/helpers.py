@@ -166,6 +166,12 @@ IMG = "POST /v1/images/generations"
 VID = "POST /v1/videos/generations"
 TTS = "POST /v1/audio/speech"
 STT = "POST /v1/audio/transcriptions"
+THREE_D = "POST /v1/3d/generations"
+MUSIC = "POST /v1/audio/generations"
+OCR = "POST /v1/ocr"
+SEARCH = "POST /v1/search"
+ANSWER = "POST /v1/answer"
+RESEARCH = "POST /v1/research"
 
 
 def catalog():
@@ -198,6 +204,25 @@ def catalog():
             model("other-stt", STT, "transcription"),
             model("chat-model", "POST /v1/chat/completions", "text", featured=True,
                   features=["reasoning", "function_calling"], rows=[]),
+            model("star-3d", THREE_D, "3d", featured=True, native=True,
+                  params=[{"name": "image", "type": "string", "required": True},
+                          {"name": "resolution", "type": "enum", "options": ["512", "1024"]}]),
+            model("text-3d", THREE_D, "3d",
+                  params=[{"name": "prompt", "type": "string"}, {"name": "image", "type": "string"},
+                          {"name": "file_format", "type": "enum", "options": ["glb", "obj", "stl"]}]),
+            model("photo-3d", THREE_D, "3d",
+                  params=[{"name": "image", "type": "string", "required": True}, {"name": "prompt", "type": "string"}]),
+            model("star-music", MUSIC, "audio", featured=True, native=True,
+                  params=[{"name": "prompt", "type": "string", "required": True}, {"name": "lyrics", "type": "string"},
+                          {"name": "audio_duration", "type": "number"},
+                          {"name": "format", "type": "enum", "options": ["flac", "wav", "mp3"]}]),
+            model("sfx-sound", MUSIC, "audio",
+                  params=[{"name": "prompt", "type": "string"}, {"name": "duration", "type": "number"},
+                          {"name": "output_format", "type": "enum", "options": ["mp3", "wav"]}]),
+            model("star-ocr", OCR, "ocr", native=True),
+            model("answer-engine", [ANSWER, SEARCH, "POST /v1/chat/completions"], "research"),
+            model("plain-search", SEARCH, "research"),
+            model("deep-research", [RESEARCH, SEARCH], "research"),
         ],
     }
 

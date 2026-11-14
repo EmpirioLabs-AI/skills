@@ -41,7 +41,8 @@ def text_files():
 class SkillFormatTests(unittest.TestCase):
     def test_every_skill_follows_the_agent_skills_rules(self):
         names = skill_names()
-        self.assertEqual(names, ["empiriolabs-image", "empiriolabs-models", "empiriolabs-speech",
+        self.assertEqual(names, ["empiriolabs-3d", "empiriolabs-image", "empiriolabs-models", "empiriolabs-music",
+                                 "empiriolabs-ocr", "empiriolabs-search", "empiriolabs-speech",
                                  "empiriolabs-transcribe", "empiriolabs-video"])
         for name in names:
             fm, raw, body = read_frontmatter(os.path.join(SKILLS, name, "SKILL.md"))

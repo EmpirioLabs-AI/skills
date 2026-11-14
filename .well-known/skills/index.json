@@ -1,6 +1,15 @@
 {
   "skills": [
     {
+      "name": "empiriolabs-3d",
+      "description": "Generate 3D models with EmpirioLabs AI from a picture of an object or, on models that take text, from a description, wait for the job to finish, and download the file. Use when the user asks to turn an image into a 3D model, mesh, or asset, to make a GLB for a game, a product page, or a 3D print, or to check on a 3D job that is still running. Runs a bundled Python script that picks a model from the live catalog (or the one you name) and saves the file to the path you choose.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/model3d.py"
+      ]
+    },
+    {
       "name": "empiriolabs-image",
       "description": "Generate and edit images with EmpirioLabs AI. Use when the user asks to create, draw, illustrate, or render a picture, logo concept, product shot, poster, or social image, or to edit, restyle, or combine existing images from a URL or local file. Runs a bundled Python script that picks a model from the live catalog (or the one you name), waits for the result, and saves the files to the path you choose.",
       "files": [
@@ -15,6 +24,33 @@
       "files": [
         "SKILL.md",
         "scripts/models.py"
+      ]
+    },
+    {
+      "name": "empiriolabs-music",
+      "description": "Generate music and sound effects with EmpirioLabs AI from a text description, with optional lyrics on models that sing, wait for the result, and save the audio file. Use when the user asks to compose a song, a backing track, a jingle, or a film score, to create a sound effect or ambience, or to check on an audio job that is still running. Runs a bundled Python script that picks a model from the live catalog (or the one you name) and saves the file to the path you choose.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/music.py"
+      ]
+    },
+    {
+      "name": "empiriolabs-ocr",
+      "description": "Read PDFs and images with EmpirioLabs AI document OCR and return their text as Markdown, with tables, formulas, and reading order kept. Use when the user asks to extract text from a PDF, a scan, a photo of a page, an invoice, or a paper, to convert a document to Markdown, or to check on a document job that is still running. Runs a bundled Python script that takes an https URL or a local file, picks a model from the live catalog (or the one you name), and prints the Markdown or saves it to the path you choose.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/ocr.py"
+      ]
+    },
+    {
+      "name": "empiriolabs-search",
+      "description": "Search the web with EmpirioLabs AI and get current results, one answer with its sources, or a research report with citations. Use when the user asks to look something up online, to find recent news, documentation, or sources, to answer a question with citations, or to research a topic in depth. Runs a bundled Python script that picks a search model from the live catalog (or the one you name) and prints the results or saves them to the path you choose.",
+      "files": [
+        "SKILL.md",
+        "scripts/empiriolabs_api.py",
+        "scripts/search.py"
       ]
     },
     {

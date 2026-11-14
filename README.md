@@ -4,7 +4,7 @@
 
 # EmpirioLabs AI agent skills
 
-Agent skills for [EmpirioLabs AI](https://empiriolabs.ai). They let an AI agent generate and edit images, make videos, turn text into speech, transcribe audio and video, and choose the right model and price from the live catalog. Each skill is a folder with a `SKILL.md` and a small Python script that uses only the standard library, so the same files work in OpenClaw, Hermes Agent, Claude Code, Codex, Cursor, and any client that supports [Agent Skills](https://agentskills.io).
+Agent skills for [EmpirioLabs AI](https://empiriolabs.ai). They let an AI agent generate and edit images, make videos, build 3D models, compose music and sound effects, turn text into speech, transcribe audio and video, read documents as Markdown, search the web, and choose the right model and price from the live catalog. Each skill is a folder with a `SKILL.md` and a small Python script that uses only the standard library, so the same files work in OpenClaw, Hermes Agent, Claude Code, Codex, Cursor, and any client that supports [Agent Skills](https://agentskills.io).
 
 EmpirioLabs AI is a specialized AI inference and integration provider. It self-hosts open-source models on GPU infrastructure it manages, runs optimized endpoints for proprietary models, and offers on-demand GPU Cloud instances and hosted AI agents. The model catalog spans text, image, video, audio, transcription, embedding, reranking, research, and 3D models.
 
@@ -14,8 +14,12 @@ EmpirioLabs AI is a specialized AI inference and integration provider. It self-h
 |---|---|---|
 | [empiriolabs-image](skills/empiriolabs-image/SKILL.md) | Generate images from a prompt, or edit and combine existing images | Required |
 | [empiriolabs-video](skills/empiriolabs-video/SKILL.md) | Make a video from a prompt or a start image, wait for the job, and download the MP4 | Required |
+| [empiriolabs-3d](skills/empiriolabs-3d/SKILL.md) | Turn a picture of an object into a 3D model, wait for the job, and download the file | Required |
+| [empiriolabs-music](skills/empiriolabs-music/SKILL.md) | Make music and sound effects from a description, with optional lyrics | Required |
 | [empiriolabs-speech](skills/empiriolabs-speech/SKILL.md) | Turn text into speech as MP3, WAV, and other formats | Required |
 | [empiriolabs-transcribe](skills/empiriolabs-transcribe/SKILL.md) | Turn an audio or video file (https URL or local file) into text | Required |
+| [empiriolabs-ocr](skills/empiriolabs-ocr/SKILL.md) | Read a PDF or an image (https URL or local file) as Markdown | Required |
+| [empiriolabs-search](skills/empiriolabs-search/SKILL.md) | Search the web for results, an answer with sources, or a research report | Required |
 | [empiriolabs-models](skills/empiriolabs-models/SKILL.md) | Find a model for a task with its price, parameters, and limits | Not needed |
 
 When no model is named, each script picks a featured model from the live catalog, so new models are available as soon as they launch. Pass `--model` to choose one yourself.
@@ -23,7 +27,7 @@ When no model is named, each script picks a featured model from the live catalog
 ## Requirements
 
 - Python 3.8 or later (`python3`, or `python` on Windows). There is nothing to install.
-- For the media skills, an EmpirioLabs AI API key in the `EMPIRIOLABS_API_KEY` environment variable. Create a key at https://platform.empiriolabs.ai/dashboard/api-keys (keys start with `sk-empiriolabs-`).
+- For every skill except `empiriolabs-models`, an EmpirioLabs AI API key in the `EMPIRIOLABS_API_KEY` environment variable. Create a key at https://platform.empiriolabs.ai/dashboard/api-keys (keys start with `sk-empiriolabs-`).
 
 ```bash
 export EMPIRIOLABS_API_KEY="sk-empiriolabs-..."      # macOS and Linux
@@ -33,7 +37,7 @@ export EMPIRIOLABS_API_KEY="sk-empiriolabs-..."      # macOS and Linux
 setx EMPIRIOLABS_API_KEY "sk-empiriolabs-..."        # Windows, then open a new terminal
 ```
 
-Requests are billed to your EmpirioLabs AI account at each model's listed price (https://empiriolabs.ai/pricing). Every media script has `--list-models` to compare prices first.
+Requests are billed to your EmpirioLabs AI account at each model's listed price (https://empiriolabs.ai/pricing). Each of those scripts has `--list-models` to compare prices first.
 
 ## Install
 
@@ -54,7 +58,7 @@ openclaw skills install @empiriolabs/empiriolabs-image
 openclaw skills install @empiriolabs/empiriolabs-models
 ```
 
-With the ClawHub CLI instead: `clawhub install @empiriolabs/empiriolabs-image`. The media skills are ready once `EMPIRIOLABS_API_KEY` is set in the environment OpenClaw runs in, or stored for a skill in `~/.openclaw/openclaw.json`:
+With the ClawHub CLI instead: `clawhub install @empiriolabs/empiriolabs-image`. The skills that need a key are ready once `EMPIRIOLABS_API_KEY` is set in the environment OpenClaw runs in, or stored for a skill in `~/.openclaw/openclaw.json`:
 
 ```json5
 {
@@ -74,7 +78,7 @@ hermes skills install well-known:https://empiriolabs.ai/.well-known/skills/empir
 hermes skills install clawhub/@empiriolabs/empiriolabs-image
 ```
 
-Any of the three sources works. To browse every skill in this repository, run `hermes skills tap add EmpirioLabs-AI/skills`, then `hermes skills search empiriolabs`. Hermes asks for `EMPIRIOLABS_API_KEY` the first time a media skill loads.
+Any of the three sources works. To browse every skill in this repository, run `hermes skills tap add EmpirioLabs-AI/skills`, then `hermes skills search empiriolabs`. Hermes asks for `EMPIRIOLABS_API_KEY` the first time a skill that needs it loads.
 
 ### Claude Code
 
@@ -118,20 +122,24 @@ python3 skills/empiriolabs-image/scripts/image.py "a lighthouse at dawn, waterco
 python3 skills/empiriolabs-video/scripts/video.py "a paper boat drifting down a rainy street" --out ./clips/boat.mp4
 python3 skills/empiriolabs-speech/scripts/speech.py "Welcome to the weekly update." --out ./audio/welcome.mp3
 python3 skills/empiriolabs-transcribe/scripts/transcribe.py https://example.com/interview.mp3 --out ./interview.txt
+python3 skills/empiriolabs-3d/scripts/model3d.py --image ./chair.png --out ./models/chair.glb
+python3 skills/empiriolabs-music/scripts/music.py "an upbeat synthwave track" --duration 30 --out ./audio/track.mp3
+python3 skills/empiriolabs-ocr/scripts/ocr.py ./invoice.pdf --out ./invoice.md
+python3 skills/empiriolabs-search/scripts/search.py "latest stable release of Python"
 ```
 
-Each script has `--help`, prints a JSON summary on stdout, and prints progress on stderr.
+Each script has `--help` and prints progress on stderr. The scripts that save a file print a JSON summary on stdout; the OCR and search scripts print their text when no `--out` is given.
 
 ## How the scripts behave
 
 - The API key is read from `EMPIRIOLABS_API_KEY` and sent only to `api.empiriolabs.ai`. The scripts never print it or write it to disk.
 - Results are saved where `--out` points. Existing files are kept and a numeric suffix is added, unless you pass `--overwrite`.
-- Video and transcription jobs can be started with `--no-wait` and picked up later with `--job-id`.
+- Video, 3D, music, and transcription jobs can be started with `--no-wait` and picked up later with `--job-id`.
 - Exit codes: `0` success, `1` the request failed, `2` invalid arguments, `3` the job was still running when the wait limit ran out.
 
 ## Remote MCP server
 
-The same models, plus GPU Cloud, hosted agents, batch jobs, and web search, are available as tools through the EmpirioLabs AI MCP server at `https://mcp.empiriolabs.ai/mcp`. Setup for Claude, ChatGPT, Cursor, and other clients: https://docs.empiriolabs.ai/mcp.
+The same models, plus GPU Cloud, hosted agents, and batch jobs, are available as tools through the EmpirioLabs AI MCP server at `https://mcp.empiriolabs.ai/mcp`. Setup for Claude, ChatGPT, Cursor, and other clients: https://docs.empiriolabs.ai/mcp.
 
 ## Development
 

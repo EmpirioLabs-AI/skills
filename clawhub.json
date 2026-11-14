@@ -12,6 +12,18 @@
         "empiriolabs"
       ]
     },
+    "empiriolabs-chat": {
+      "name": "EmpirioLabs AI Chat",
+      "categories": [
+        "productivity"
+      ],
+      "topics": [
+        "chat",
+        "second-opinion",
+        "llm",
+        "empiriolabs"
+      ]
+    },
     "empiriolabs-image": {
       "name": "EmpirioLabs AI Image",
       "categories": [

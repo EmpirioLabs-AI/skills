@@ -172,6 +172,7 @@ OCR = "POST /v1/ocr"
 SEARCH = "POST /v1/search"
 ANSWER = "POST /v1/answer"
 RESEARCH = "POST /v1/research"
+CHAT = "POST /v1/chat/completions"
 
 
 def catalog():
@@ -223,6 +224,9 @@ def catalog():
             model("answer-engine", [ANSWER, SEARCH, "POST /v1/chat/completions"], "research"),
             model("plain-search", SEARCH, "research"),
             model("deep-research", [RESEARCH, SEARCH], "research"),
+            dict(model("vision-chat", CHAT, "text"), modality="multimodal", input_modalities=["text", "image"]),
+            # A media model that lists a chat endpoint: a chat request to it makes a picture, not text.
+            dict(model("picture-chat", CHAT, "image"), modality="image"),
         ],
     }
 

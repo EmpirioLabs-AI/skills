@@ -1,0 +1,75 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "empiriolabs-3d",
+      "type": "archive",
+      "description": "Generate 3D models with EmpirioLabs AI from a picture of an object or, on models that take text, from a description, wait for the job to finish, and download the file. Use when the user asks to turn an image into a 3D model, mesh, or asset, to make a GLB for a game, a product page, or a 3D print, or to check on a 3D job that is still running. Runs a bundled Python script that picks a model from the live catalog (or the one you name) and saves the file to the path you choose.",
+      "url": "empiriolabs-3d.zip",
+      "digest": "sha256:54e0c1a85e632c7449aec58ff24a8e931594ea0c3b6c76d4d737def15837911c"
+    },
+    {
+      "name": "empiriolabs-chat",
+      "type": "archive",
+      "description": "Ask an EmpirioLabs AI text model a question and get its answer. Use when the user asks for a second opinion from another model on code, a plan, or a draft, wants a specific EmpirioLabs AI model to answer, wants several models to answer the same prompt side by side, or needs a model that reads images to describe a picture. Runs a bundled Python script that picks a text model from the live catalog (or the ones you name), can attach text files and images to the prompt, and prints the answer or saves it to the path you choose.",
+      "url": "empiriolabs-chat.zip",
+      "digest": "sha256:8ddd168b43d796d16205b4f49ffe675e4a9c0a024ef05d75a38f4438b2c05af4"
+    },
+    {
+      "name": "empiriolabs-image",
+      "type": "archive",
+      "description": "Generate and edit images with EmpirioLabs AI. Use when the user asks to create, draw, illustrate, or render a picture, logo concept, product shot, poster, or social image, or to edit, restyle, or combine existing images from a URL or local file. Runs a bundled Python script that picks a model from the live catalog (or the one you name), waits for the result, and saves the files to the path you choose.",
+      "url": "empiriolabs-image.zip",
+      "digest": "sha256:c6dc87d1a5998fc3109a15e2a5e84aa086ee1575e18c9217bcc56d87d6bc8bcf"
+    },
+    {
+      "name": "empiriolabs-models",
+      "type": "archive",
+      "description": "Find the right EmpirioLabs AI model for a task and look up its price, parameters, limits, and supported endpoints in the live public catalog. Use when the user asks which model to use for text, image, video, audio, transcription, research, embeddings, or 3D, what a model costs, which models support a feature or endpoint, or what parameters a model accepts. No API key needed.",
+      "url": "empiriolabs-models.zip",
+      "digest": "sha256:bd599990f877146e9dd07ebbcadd1c6a3cafcc300933864a006ae4dccdf0f891"
+    },
+    {
+      "name": "empiriolabs-music",
+      "type": "archive",
+      "description": "Generate music and sound effects with EmpirioLabs AI from a text description, with optional lyrics on models that sing, wait for the result, and save the audio file. Use when the user asks to compose a song, a backing track, a jingle, or a film score, to create a sound effect or ambience, or to check on an audio job that is still running. Runs a bundled Python script that picks a model from the live catalog (or the one you name) and saves the file to the path you choose.",
+      "url": "empiriolabs-music.zip",
+      "digest": "sha256:42b98c345e5a25dfb3763ce4c782b456050566f4e13b37b5c52739c6de635bd3"
+    },
+    {
+      "name": "empiriolabs-ocr",
+      "type": "archive",
+      "description": "Read PDFs and images with EmpirioLabs AI document OCR and return their text as Markdown, with tables, formulas, and reading order kept. Use when the user asks to extract text from a PDF, a scan, a photo of a page, an invoice, or a paper, to convert a document to Markdown, or to check on a document job that is still running. Runs a bundled Python script that takes an https URL or a local file, picks a model from the live catalog (or the one you name), and prints the Markdown or saves it to the path you choose.",
+      "url": "empiriolabs-ocr.zip",
+      "digest": "sha256:f2ab7a8e29fa83c1407eafb58b36a68855bc046553edf3e0dd84f707865073c8"
+    },
+    {
+      "name": "empiriolabs-search",
+      "type": "archive",
+      "description": "Search the web with EmpirioLabs AI and get current results, one answer with its sources, or a research report with citations. Use when the user asks to look something up online, to find recent news, documentation, or sources, to answer a question with citations, or to research a topic in depth. Runs a bundled Python script that picks a search model from the live catalog (or the one you name) and prints the results or saves them to the path you choose.",
+      "url": "empiriolabs-search.zip",
+      "digest": "sha256:4c7865973673585dfa4527bf78f35bcc2b8135f0c8333f29b3bd127f16e4b180"
+    },
+    {
+      "name": "empiriolabs-speech",
+      "type": "archive",
+      "description": "Turn text into natural speech with EmpirioLabs AI and save the audio file (MP3, WAV, and other formats). Use when the user asks to read text aloud, create a voiceover, narration, or audio version of a script, or try different voices and languages. Runs a bundled Python script that picks a text-to-speech model from the live catalog (or the one you name) and saves the audio to the path you choose.",
+      "url": "empiriolabs-speech.zip",
+      "digest": "sha256:c669ea9f0b230736534701fb588cf403df740ac5f7bead6f54c422a1fcc2c7ae"
+    },
+    {
+      "name": "empiriolabs-transcribe",
+      "type": "archive",
+      "description": "Transcribe audio or video files to text with EmpirioLabs AI, from an https URL or a local file. Use when the user asks for a transcript of a recording, meeting, interview, podcast, voice note, or video, wants speaker-labeled text, or needs the spoken words as text for notes, summaries, or captions. Runs a bundled Python script that picks a transcription model from the live catalog (or the one you name) and waits for the result.",
+      "url": "empiriolabs-transcribe.zip",
+      "digest": "sha256:89583bf1958bce21700d0eeb46c4923d551ae4c72a85a89074b375c7bc8b17da"
+    },
+    {
+      "name": "empiriolabs-video",
+      "type": "archive",
+      "description": "Generate short videos with EmpirioLabs AI from a text prompt or a start image, wait for the job to finish, and download the MP4. Use when the user asks to make, animate, or render a video clip, turn a still image into motion, or check on a video job that is still running. Runs a bundled Python script that picks a model from the live catalog (or the one you name) and saves the file to the path you choose.",
+      "url": "empiriolabs-video.zip",
+      "digest": "sha256:b912a89de93671cb923daf17d1ba8c04f56d9fd451cde67bc969181feaf4a24d"
+    }
+  ]
+}

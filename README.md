@@ -148,12 +148,12 @@ The same models, plus GPU Cloud, hosted agents, and batch jobs, are available as
 ```bash
 python -m unittest discover -s tests                 # offline unit tests, no network
 python scripts/sync_shared.py                        # copy shared/empiriolabs_api.py into each skill
-python scripts/build_well_known.py --index .well-known/skills/index.json   # after changing a skill
+python scripts/build_well_known.py --publish         # after changing a skill
 ```
 
-To release a skill, raise `version` under `metadata` in its `SKILL.md` and push to `main`. The `clawhub` workflow publishes every skill whose version is not on ClawHub yet, with the listing fields in `clawhub.json`; the skills CLI, the Claude Code and Codex marketplaces, and https://empiriolabs.ai/.well-known/skills/ read `main` directly.
+To release a skill, raise `version` under `metadata` in its `SKILL.md` and push to `main`. The `clawhub` workflow publishes every skill whose version is not on ClawHub yet, with the listing fields in `clawhub.json`; the skills CLI, the Claude Code and Codex marketplaces, and https://empiriolabs.ai/.well-known/ read `main` directly.
 
-`shared/empiriolabs_api.py` is the one copy of the API client to edit; each skill carries an identical copy so it works when installed on its own, and the tests fail if a copy drifts. `scripts/build_well_known.py` writes the `/.well-known/skills/` index that Hermes Agent and the skills CLI install from a website. The committed `.well-known/skills/index.json` is what https://empiriolabs.ai/.well-known/skills/index.json serves, with each listed file read from `skills/`; the tests fail when it is out of date. `--out <dir>` writes the index and every file for a site that hosts its own copy. `tests/live_smoke.py` makes real, billed requests when `EMPIRIOLABS_API_KEY` is set.
+`shared/empiriolabs_api.py` is the one copy of the API client to edit; each skill carries an identical copy so it works when installed on its own, and the tests fail if a copy drifts. `scripts/build_well_known.py --publish` writes what agents install from a website: `.well-known/agent-skills/`, an [Agent Skills Discovery](https://github.com/cloudflare/agent-skills-discovery-rfc) v0.2.0 index with one archive per skill (the skills CLI reads it first), and `.well-known/skills/index.json`, the earlier format that Hermes Agent reads, with each listed file read from `skills/`. https://empiriolabs.ai serves both from `main`, and the tests fail when either is out of date. `--out <dir>` and `--agent-skills <dir>` write a complete tree for a site that hosts its own copy. `tests/live_smoke.py` makes real, billed requests when `EMPIRIOLABS_API_KEY` is set.
 
 ## Support and license
 
